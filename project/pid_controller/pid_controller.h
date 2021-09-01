@@ -10,25 +10,28 @@
 class PID {
 public:
 
-   /**
-   * TODO: Create the PID class
-   **/
-
-    /*
+  	/*
     * Errors
     */
+    double error; // error for this loop iteration
+  	double last_error; // error for last loop iteration
+  	double accum_error; // accumulated error for integral calculation
 
-    /*
+  	/*
     * Coefficients
     */
+    double Kp, Ki, Kd; // proportional, integral, and derivative coefficients
 
     /*
     * Output limits
     */
-  
-    /*
-    * Delta time
+    double output_lim_max;
+  	double output_lim_min;
+  	
+  	/*
+    * Time delta
     */
+    double delta_time; // time difference between current loop iteration and last (for derivative calculation)
 
     /*
     * Constructor
@@ -43,12 +46,12 @@ public:
     /*
     * Initialize PID.
     */
-    void Init(double Kp, double Ki, double Kd, double output_lim_max, double output_lim_min);
+    void Init(double Kpi, double Kii, double Kdi, double output_lim_maxi, double output_lim_mini);
 
     /*
     * Update the PID error variables given cross track error.
     */
-    void UpdateError(double cte);
+    void UpdateError(double new_error);
 
     /*
     * Calculate the total PID error.
